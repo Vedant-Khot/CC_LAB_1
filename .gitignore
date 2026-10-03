@@ -1,0 +1,6 @@
+__pycache__/
+results/
+*.pyc
+
+# local overrides, e.g. IMAGE_PREFIX for Docker Hub pushes
+.env

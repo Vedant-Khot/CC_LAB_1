@@ -1,0 +1,95 @@
+name: unstop-lab
+
+services:
+  opportunity-service:
+    build: ./opportunity-service
+    # name used both locally and on Docker Hub, e.g. docker.io/<you>/opportunity-service:latest
+    image: ${IMAGE_PREFIX:-unstop-lab}/unstop-lab-opportunity-service:${IMAGE_TAG:-latest}
+    container_name: opportunity-service
+    ports:
+      - "5002:5002"
+    environment:
+      IO_DELAY: "0.005"      # pretend DB read
+      RESERVE_SEATS: "false" # keep load tests repeatable
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5002/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - lab
+    deploy:
+      resources:
+        limits:
+          # No CPU cap: the services compete for the same Docker Desktop VM, so
+          # the measured CPU% reflects real demand per service instead of a limit.
+          memory: 256M
+
+  evaluation-service:
+    build: ./evaluation-service
+    # name used both locally and on Docker Hub, e.g. docker.io/<you>/evaluation-service:latest
+    image: ${IMAGE_PREFIX:-unstop-lab}/unstop-lab-evaluation-service:${IMAGE_TAG:-latest}
+    container_name: evaluation-service
+    ports:
+      - "5003:5003"
+    environment:
+      HEAVY_ITERS: "4000"   # sha256 rounds per request
+      HEAVY_SLEEP: "0.03"   # simulated model inference
+      NOTIFY_DELAY: "0.005"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5003/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - lab
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  registration-service:
+    build: ./registration-service
+    # name used both locally and on Docker Hub, e.g. docker.io/<you>/registration-service:latest
+    image: ${IMAGE_PREFIX:-unstop-lab}/unstop-lab-registration-service:${IMAGE_TAG:-latest}
+    container_name: registration-service
+    ports:
+      - "5001:5001"
+    environment:
+      OPPORTUNITY_URL: "http://opportunity-service:5002"
+      EVALUATION_URL: "http://evaluation-service:5003"
+      INTERNAL_TIMEOUT: "10"
+    depends_on:
+      opportunity-service:
+        condition: service_healthy
+      evaluation-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5001/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - lab
+    deploy:
+      resources:
+        limits:
+          # No CPU cap: the services compete for the same Docker Desktop VM, so
+          # the measured CPU% reflects real demand per service instead of a limit.
+          memory: 256M
+
+networks:
+  lab:
+    driver: bridge
+# IMAGE_PREFIX  Docker Hub namespace (your username), defaults to 'unstop-lab'
+# IMAGE_TAG     image tag, defaults to 'latest'
+# Set them in a .env file or inline:
+#   IMAGE_PREFIX=vedantkhot112 docker compose pull
+#
+# The published repositories are:
+#   vedantkhot112/unstop-lab-registration-service
+#   vedantkhot112/unstop-lab-opportunity-service
+#   vedantkhot112/unstop-lab-evaluation-service
