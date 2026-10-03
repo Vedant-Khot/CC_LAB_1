@@ -1,0 +1,18 @@
+# Normalise line endings so git never reports a file as mixed.
+#
+# The repo previously relied on core.autocrlf=true, which is a per-machine
+# setting: it makes the working tree CRLF on Windows but LF on Linux/macOS,
+# and it reports files with leftover mixed endings as a warning.
+# Spelling it out here keeps every clone identical regardless of settings.
+
+* text=auto eol=crlf
+
+# Shell scripts must stay LF: CRLF breaks them on Linux, macOS and WSL.
+*.sh text eol=lf
+
+# Same for the container entrypoints, which are always Linux.
+Dockerfile text eol=lf
+
+# Generated evidence: keep diffs stable, they are compared line by line.
+*.csv text eol=crlf
+*.png binary

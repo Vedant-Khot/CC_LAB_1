@@ -1,6 +1,8 @@
 __pycache__/
-results/
 *.pyc
+
+# results/ is deliberately NOT ignored: the observation table, the graphs and
+# the raw load / docker stats output are part of the submission package.
 
 # local overrides, e.g. IMAGE_PREFIX for Docker Hub pushes
 .env

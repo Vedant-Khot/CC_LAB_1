@@ -1,0 +1,26 @@
+{
+  "url": "http://localhost:5001/register",
+  "requests_per_level": 300,
+  "rows": [
+    {
+      "concurrency": 8,
+      "requests": 300,
+      "ok": 300,
+      "not_eligible": 0,
+      "failed": 0,
+      "wall_seconds": 10.416,
+      "rps": 28.8,
+      "avg_ms": 267.33,
+      "p50_ms": 251.29,
+      "p95_ms": 466.27,
+      "p99_ms": 539.52,
+      "max_ms": 642.69,
+      "avg_stage_ms": {
+        "opportunity_check_ms": 30.65,
+        "evaluation_ms": 118.43,
+        "notify_ms": 60.03,
+        "total_ms": 214.62
+      }
+    }
+  ]
+}

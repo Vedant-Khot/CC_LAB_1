@@ -1,0 +1,17 @@
+﻿target: http://localhost:5001/register
+requests per level: 300
+levels: [8]
+warmup: 5
+
+ conc  reqs   201  409  err  wall_s     rps   avg_ms   p50_ms   p95_ms   p99_ms   max_ms
+----------------------------------------------------------------------------------------
+    8   300   300    0    0   10.42   28.80   267.33   251.29   466.27   539.52   642.69
+
+server-side time per request (avg ms, measured inside the services)
+ conc   opp_check   evaluate   notify  service_total
+----------------------------------------------------
+    8       30.65     118.43    60.03         214.62
+
+JSON written to D:\5sem\lab 1\unstop-lab\results\load_test_outputs\W4.json
+throughput: 28.8 rps at concurrency 8 (300 ok, 0 rejected, 0 failed)
+p95 latency: 466.27 ms

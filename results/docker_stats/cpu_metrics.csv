@@ -1,0 +1,16 @@
+﻿workload,container,cpu_seconds_before,cpu_seconds_after,cpu_seconds_used,wall_seconds,cpu_percent,memory_peak_mb
+W1,registration-service,3.1558,16.032,12.876,35.705,36.06,56.86
+W1,opportunity-service,3.0258,10.2617,7.236,35.705,20.27,52.92
+W1,evaluation-service,2.7896,16.7618,13.972,35.705,39.13,52.79
+W2,registration-service,3.5044,13.5116,10.007,19.339,51.75,57.24
+W2,opportunity-service,3.061,7.8705,4.810,19.339,24.87,52.98
+W2,evaluation-service,3.3314,14.1626,10.831,19.339,56.01,53.46
+W3,registration-service,2.6952,12.9981,10.303,13.102,78.64,57.87
+W3,opportunity-service,2.3487,7.0548,4.706,13.102,35.92,53.10
+W3,evaluation-service,2.7822,14.1974,11.415,13.102,87.12,53.41
+W4,registration-service,4.8765,16.4613,11.585,13.765,84.16,57.61
+W4,opportunity-service,4.2259,9.8624,5.636,13.765,40.94,53.13
+W4,evaluation-service,4.5053,17.4339,12.929,13.765,93.93,53.48
+W5,registration-service,5.5513,16.4563,10.905,11.039,98.79,57.64
+W5,opportunity-service,5.3473,10.3286,4.981,11.039,45.12,53.05
+W5,evaluation-service,4.6199,15.3057,10.686,11.039,96.80,53.13

@@ -164,13 +164,13 @@ def main():
 
     (root / "observation_table.md").write_text("\n".join(md), encoding="utf-8")
 
-    with open(root / "observation_table.csv", "w", encoding="utf-8", newline="") as handle:
+    with open(root / "observation_table.csv", "w", encoding="utf-8") as handle:
         handle.write("Workload,Concurrency,Avg Response Time (ms),Throughput (rps),"
                      "Failed,CPU Percent,Memory MB\n")
         for row in main_rows:
             handle.write(",".join(str(cell) for cell in row) + "\n")
 
-    with open(root / "observation_table_by_service.csv", "w", encoding="utf-8", newline="") as handle:
+    with open(root / "observation_table_by_service.csv", "w", encoding="utf-8") as handle:
         handle.write("Workload,Service,Avg CPU Percent,CPU Seconds Used,Wall Seconds,"
                      "Peak RSS MB,Sampled Peak CPU Percent,Sampled Peak MEM Percent,"
                      "CPU ms per request\n")

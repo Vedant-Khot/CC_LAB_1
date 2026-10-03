@@ -86,7 +86,7 @@ Stop: `docker compose down`.
 Image names come from two variables, so the same compose file builds locally and publishes:
 
 ```yaml
-image: ${IMAGE_PREFIX:-unstop-lab}/registration-service:${IMAGE_TAG:-latest}
+image: ${IMAGE_PREFIX:-unstop-lab}/unstop-lab-registration-service:${IMAGE_TAG:-latest}
 ```
 
 ```bash
@@ -111,13 +111,21 @@ IMAGE_PREFIX=<yourhubusername> docker compose push
 IMAGE_PREFIX=<yourhubusername> docker compose build --push
 ```
 
-That publishes `docker.io/<yourhubusername>/registration-service`,
-`.../opportunity-service` and `.../evaluation-service`. To run the stack from the published
-images instead of building:
+That publishes one repository per service. This project is already published as:
+
+```text
+docker.io/vedantkhot112/unstop-lab-registration-service:latest   47 MB
+docker.io/vedantkhot112/unstop-lab-opportunity-service:latest    46 MB
+docker.io/vedantkhot112/unstop-lab-evaluation-service:latest     46 MB
+```
+
+`.env` in this repo already sets `IMAGE_PREFIX=vedantkhot112`, so the stack can be run from the
+published images without building anything locally:
 
 ```bash
-IMAGE_PREFIX=<yourhubusername> docker compose pull
-IMAGE_PREFIX=<yourhubusername> docker compose up -d
+docker compose pull
+docker compose up -d
+docker compose ps
 ```
 
 Notes:
@@ -227,5 +235,5 @@ observation table is `reqs - 201`, so a `409` counts as failed.
 - All three containers share the Docker Desktop VM's cores, so a busy host adds noise. Let the
   machine settle before a run and do not rebuild images immediately before measuring.
 - `loadtest/run-lab.*` is the quick version (all levels in one pass, sampled stats only);
-  `loadtest/run-workloads.*` is the graded version (one workload at a time, exact metrics).#   C C _ L A B _ 1  
- 
+  `loadtest/run-workloads.*` is the graded version (one workload at a time, exact metrics).# CC_LAB_1
+

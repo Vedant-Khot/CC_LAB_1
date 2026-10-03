@@ -62,16 +62,17 @@ docker compose ps
 ```
 
 Expected: three images and three containers with status `Up ... (healthy)` on ports
-5001, 5002, 5003. Image names are `unstop-lab/<service>:latest` by default, or
-`docker.io/<yourhubusername>/<service>:latest` if `IMAGE_PREFIX` is set (see the Docker Hub
-section of `README.md`).
+5001, 5002, 5003. With `.env` set to `IMAGE_PREFIX=vedantkhot112` the images are
+`vedantkhot112/unstop-lab-registration-service` and so on; without it they build locally as
+`unstop-lab/unstop-lab-<service>:latest`.
 
-Bonus, if you pushed to Docker Hub: show that someone else can pull and run the stack
-without building:
+Bonus: the three images are published, so you can show the stack running straight from Docker Hub
+with no local build at all:
 
 ```bash
-IMAGE_PREFIX=<yourhubusername> docker compose pull
-IMAGE_PREFIX=<yourhubusername> docker compose up -d
+docker compose pull      # .env already points at vedantkhot112
+docker compose up -d
+docker compose ps
 ```
 
 ---

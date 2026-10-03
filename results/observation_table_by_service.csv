@@ -1,0 +1,16 @@
+Workload,Service,Avg CPU Percent,CPU Seconds Used,Wall Seconds,Peak RSS MB,Sampled Peak CPU Percent,Sampled Peak MEM Percent,CPU ms per request
+W1,registration-service,36.06,12.876,35.705,56.86,53.31,16.92,42.92
+W1,opportunity-service,20.27,7.236,35.705,52.92,38.76,15.75,24.12
+W1,evaluation-service,39.13,13.972,35.705,52.79,58.10,16.03,46.57
+W2,registration-service,51.75,10.007,19.339,57.24,77.22,16.77,33.36
+W2,opportunity-service,24.87,4.810,19.339,52.98,45.21,15.05,16.03
+W2,evaluation-service,56.01,10.831,19.339,53.46,68.56,15.12,36.10
+W3,registration-service,78.64,10.303,13.102,57.87,170.40,21.12,34.34
+W3,opportunity-service,35.92,4.706,13.102,53.10,124.26,19.47,15.69
+W3,evaluation-service,87.12,11.415,13.102,53.41,183.64,20.17,38.05
+W4,registration-service,84.16,11.585,13.765,57.61,137.99,16.87,38.62
+W4,opportunity-service,40.94,5.636,13.765,53.13,142.25,19.80,18.79
+W4,evaluation-service,93.93,12.929,13.765,53.48,141.50,15.23,43.10
+W5,registration-service,98.79,10.905,11.039,57.64,196.11,22.52,36.35
+W5,opportunity-service,45.12,4.981,11.039,53.05,100.31,15.04,16.60
+W5,evaluation-service,96.80,10.686,11.039,53.13,237.55,19.69,35.62

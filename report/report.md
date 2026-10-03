@@ -83,13 +83,13 @@ highest peak RSS. Both are broken down per service in section 2.
 
 ## 2. Graphs
 
-![Average response time](results/graphs/avg_response_time.png)
+![Average response time](../results/graphs/avg_response_time.png)
 
-![Throughput](results/graphs/throughput.png)
+![Throughput](../results/graphs/throughput.png)
 
-![CPU utilization](results/graphs/cpu_utilization.png)
+![CPU utilization](../results/graphs/cpu_utilization.png)
 
-![Memory utilization](results/graphs/memory_utilization.png)
+![Memory utilization](../results/graphs/memory_utilization.png)
 
 ---
 

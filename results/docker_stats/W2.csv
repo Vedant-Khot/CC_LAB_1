@@ -1,0 +1,25 @@
+﻿timestamp,container,cpu_percent,mem_percent,mem_usage
+20:38:17,registration-service,45.63%,16.33%,41.79MiB / 256MiB
+20:38:17,opportunity-service,10.17%,14.87%,38.07MiB / 256MiB
+20:38:17,evaluation-service,37.48%,14.86%,38.05MiB / 256MiB
+20:38:19,registration-service,43.55%,16.32%,41.77MiB / 256MiB
+20:38:19,opportunity-service,10.80%,14.92%,38.21MiB / 256MiB
+20:38:19,evaluation-service,49.96%,15.03%,38.48MiB / 256MiB
+20:38:22,registration-service,77.22%,16.64%,42.59MiB / 256MiB
+20:38:22,opportunity-service,45.21%,14.93%,38.22MiB / 256MiB
+20:38:22,evaluation-service,68.38%,14.97%,38.34MiB / 256MiB
+20:38:24,registration-service,42.81%,16.40%,42MiB / 256MiB
+20:38:24,opportunity-service,12.74%,14.93%,38.21MiB / 256MiB
+20:38:24,evaluation-service,40.67%,15.11%,38.68MiB / 256MiB
+20:38:26,registration-service,40.88%,16.64%,42.6MiB / 256MiB
+20:38:26,opportunity-service,8.90%,15.05%,38.54MiB / 256MiB
+20:38:26,evaluation-service,42.67%,15.06%,38.54MiB / 256MiB
+20:38:28,registration-service,67.08%,16.66%,42.64MiB / 256MiB
+20:38:28,opportunity-service,35.66%,14.96%,38.29MiB / 256MiB
+20:38:28,evaluation-service,68.56%,15.11%,38.68MiB / 256MiB
+20:38:30,registration-service,48.74%,16.63%,42.58MiB / 256MiB
+20:38:30,opportunity-service,13.25%,14.96%,38.3MiB / 256MiB
+20:38:30,evaluation-service,50.91%,15.11%,38.69MiB / 256MiB
+20:38:32,registration-service,41.70%,16.77%,42.93MiB / 256MiB
+20:38:32,opportunity-service,10.29%,14.96%,38.29MiB / 256MiB
+20:38:32,evaluation-service,43.14%,15.12%,38.72MiB / 256MiB
