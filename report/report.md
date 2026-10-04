@@ -169,6 +169,21 @@ The degradation that did occur had three contributing causes:
    at W1, 255 ms at W5). A good part of the 33 rps ceiling is therefore an artefact of the
    measurement environment rather than of the application.
 
+That third cause is measurable rather than inferred. Running the *same* generator (200 requests,
+concurrency 4) from three different places isolates each hop:
+
+| Generator runs | Reaches Service 1 via | Throughput | Avg latency |
+|---|---|---|---|
+| Windows host (used for the graded table) | published port `localhost:5001` | 25.65 rps | 154.98 ms |
+| inside the `web-ui` container | published port, via `host.docker.internal` | 43.40 rps | 91.37 ms |
+| inside the `web-ui` container | internal bridge `registration-service:5001` | 51.89 rps | 76.31 ms |
+
+So roughly **40 % of the throughput deficit was the load generator running on Windows** next to the
+Docker Desktop VM, and a further **~20 % was the published port's forwarding proxy**. The services
+themselves are about twice as fast as the headline numbers suggest. This does not invalidate the
+table — the relative shape across W1–W5 is unaffected, since every level pays the same overhead —
+but the absolute throughput should not be quoted as the application's capacity.
+
 No degradation was seen in the tail distribution: the p99/avg ratio stayed between 1.65 and 1.83 for
 every level, so requests slowed down together rather than a few stragglers dominating.
 
@@ -194,8 +209,10 @@ Adding clients or threads is therefore not a fix. The fixes that would actually 
   cost without the CPU.
 - **Release the GIL** by moving scoring into a native library, a compiled extension, or a separate
   process pool with a shared store, so `--threads` becomes useful.
-- **Eliminate the proxy hop** by running the stack on a Linux host or behind a single published
-  entry point, which would remove the 54 % latency overhead seen at W5.
+- **Eliminate the proxy hop** — measured in section 3.3 as worth ~20 % of throughput on its own,
+  and ~40 % more if the client also runs on the Windows host. Running the client and the entry
+  point on the same Docker network, or publishing a single entry point instead of three, recovers
+  that headroom.
 
 Note that the ranking of services is workload-dependent: `evaluation-service` has the largest
 single-step latency at every level, and at lower throughput (earlier runs on this machine) it also

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unstop Lab &middot; Opportunity Platform</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="dot"></span>
+    <div>
+      <h1>Unstop Lab</h1>
+      <p>Client &rarr; Registration Service &rarr; Opportunity Service &rarr; Evaluation Service</p>
+    </div>
+  </div>
+  <div class="topstats">
+    <div class="stat"><span class="label">registrations</span><strong id="stat-regs">-</strong></div>
+    <div class="stat"><span class="label">workloads run</span><strong id="stat-workloads">0</strong></div>
+    <div class="stat"><span class="label">last throughput</span><strong id="stat-rps">-</strong></div>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>1 &middot; Register a student</h2>
+    <p class="hint">One call walks all three services: eligibility, then scoring, then confirmation.</p>
+    <form id="register-form">
+      <div class="grid">
+        <label>Name<input name="student_name" value="Asha" required></label>
+        <label>Email<input name="email" value="asha@unstop-lab.test" required></label>
+        <label>College<input name="college" value="NIT Trichy" required></label>
+        <label>Year<input name="year" type="number" min="1" max="5" value="3" required></label>
+        <label>Team size<input name="team_size" type="number" min="1" max="10" value="2" required></label>
+        <label>Opportunity<select name="opportunity_id" id="opp-select"></select></label>
+      </div>
+      <label>Skills <span class="hint-inline">comma separated</span>
+        <input name="skills" id="skills" value="python, machine-learning, sql">
+      </label>
+      <button type="submit" id="reg-btn">POST /register</button>
+    </form>
+    <div id="reg-result" class="result"></div>
+  </section>
+
+  <section class="card">
+    <h2>2 &middot; Open hackathons</h2>
+    <p class="hint">Live from the opportunity service.</p>
+    <div id="opp-table" class="table-wrap">loading&hellip;</div>
+  </section>
+
+  <section class="card wide">
+    <h2>3 &middot; Load testing</h2>
+    <p class="hint">
+      The generator runs inside this container, so it never competes for CPU with the three
+      measured services. CPU and memory are read from each container's cgroup before and
+      after a level, so they are measured, not sampled.
+    </p>
+    <div class="controls">
+      <div class="levels">
+        <button class="lvl" data-conc="1">1</button>
+        <button class="lvl" data-conc="2">2</button>
+        <button class="lvl" data-conc="4">4</button>
+        <button class="lvl" data-conc="8">8</button>
+        <button class="lvl" data-conc="16">16</button>
+      </div>
+      <label class="inline">requests<input id="req-count" type="number" min="1" max="2000" value="100"></label>
+      <button id="run-all" class="primary">Run 1 / 2 / 4 / 8 / 16</button>
+      <button id="clear-btn">Clear</button>
+    </div>
+    <div id="run-status" class="status"></div>
+
+    <div class="charts">
+      <figure><figcaption>Throughput (rps)</figcaption><svg id="chart-rps" viewBox="0 0 320 190"></svg></figure>
+      <figure><figcaption>Average response time (ms)</figcaption><svg id="chart-lat" viewBox="0 0 320 190"></svg></figure>
+      <figure><figcaption>CPU per container (%)</figcaption><svg id="chart-cpu" viewBox="0 0 320 190"></svg></figure>
+    </div>
+
+    <div id="load-table" class="table-wrap">No workloads run yet in this session.</div>
+  </section>
+
+  <section class="card wide">
+    <h2>4 &middot; Live container usage</h2>
+    <p class="hint">Polled every 2 s from the <code>/metrics</code> endpoint of each service.</p>
+    <div id="metrics-table" class="table-wrap">loading&hellip;</div>
+  </section>
+
+  <section class="card wide">
+    <h2>5 &middot; Recent registrations &amp; leaderboard</h2>
+    <div class="split">
+      <div>
+        <h3>Registration service</h3>
+        <div id="regs-table" class="table-wrap">loading&hellip;</div>
+      </div>
+      <div>
+        <h3>Leaderboard (evaluation service)</h3>
+        <div id="board-table" class="table-wrap">loading&hellip;</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

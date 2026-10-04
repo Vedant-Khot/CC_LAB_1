@@ -81,6 +81,40 @@ services:
           # the measured CPU% reflects real demand per service instead of a limit.
           memory: 256M
 
+  web-ui:
+    # build context is the repo root so the image can reuse loadtest/loadtest.py:
+    # the dashboard and the graded workload runs then share one implementation
+    build:
+      context: .
+      dockerfile: web-ui/Dockerfile
+    image: ${IMAGE_PREFIX:-unstop-lab}/unstop-lab-web-ui:${IMAGE_TAG:-latest}
+    container_name: web-ui
+    ports:
+      - "8080:8080"
+    environment:
+      REGISTRATION_URL: "http://registration-service:5001"
+      OPPORTUNITY_URL: "http://opportunity-service:5002"
+      EVALUATION_URL: "http://evaluation-service:5003"
+    depends_on:
+      registration-service:
+        condition: service_healthy
+      opportunity-service:
+        condition: service_healthy
+      evaluation-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - lab
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
 networks:
   lab:
     driver: bridge

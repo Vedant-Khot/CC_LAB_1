@@ -162,6 +162,29 @@ python loadtest/loadtest.py --requests 200 --levels 16
 
 ---
 
+---
+
+## Bonus - the dashboard (optional, shows well)
+
+With the stack up, open **http://localhost:8080**.
+
+Best first impression: click **Run 1 / 2 / 4 / 8 / 16** in the load testing panel. The page runs the
+five levels itself, draws throughput / latency / CPU charts as the points arrive, and prints a table
+with the CPU of each container measured from its cgroup. Then send one registration from the form and
+watch the score, rank and per-hop timings come back from all three services.
+
+To show the services are independent behind the UI, stop one and watch the panel degrade:
+
+```bash
+docker compose stop opportunity-service
+```
+
+the page keeps loading, and a registration comes back with `upstream_failure` naming the stage,
+because Service 1 reports which hop broke rather than returning a generic 500.
+
+The generator runs in this fourth container on purpose: putting it inside one of the three measured
+services would spend the CPU that the measurement is meant to attribute.
+
 ## Checkpoint 5 — table, graphs, explanation
 
 Show, in this order:
